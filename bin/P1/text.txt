@@ -1,0 +1,3 @@
+People [ID=21, Age=65, ComingTime=123, SourceFloor=2, DestinationFloor=9, LeavingTime=0, isOldman=false, UpOrDown=false]
+People [ID=1, Age=45, ComingTime=16, SourceFloor=80, DestinationFloor=5, LeavingTime=0, isOldman=false, UpOrDown=false]
+People [ID=4, Age=14, ComingTime=382, SourceFloor=1, DestinationFloor=99, LeavingTime=0, isOldman=false, UpOrDown=false]
