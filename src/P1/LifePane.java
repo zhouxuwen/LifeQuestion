@@ -16,6 +16,9 @@ public class LifePane extends Pane {
 	protected double Width = 800;
 	protected double Hight = 900;
 	protected int floorNum = 10;
+	
+	Rectangle rectangle1;
+	Rectangle rectangle2;
 	protected Timeline timeline1;
 	protected Timeline timeline2;
 	protected Timeline timeline3;
@@ -31,77 +34,82 @@ public class LifePane extends Pane {
 			getChildren().add(line);
 			
 		}
-		Rectangle rectangle1 = new Rectangle(60,900-Hight/floorNum + Hight/floorNum*0.4, Hight/floorNum*0.4,Hight/floorNum*0.6);
+		rectangle1 = new Rectangle(60,900-Hight/floorNum + Hight/floorNum*0.4, Hight/floorNum*0.4,Hight/floorNum*0.6);
 		rectangle1.setFill(Color.BLUE);
-		Rectangle rectangle2 = new Rectangle(61 + Hight/floorNum*0.4,900-Hight/floorNum + Hight/floorNum*0.4, Hight/floorNum*0.4,Hight/floorNum*0.6);
+		rectangle2 = new Rectangle(61 + Hight/floorNum*0.4,900-Hight/floorNum + Hight/floorNum*0.4, Hight/floorNum*0.4,Hight/floorNum*0.6);
 		rectangle2.setFill(Color.BLUE);
+		
 		getChildren().add(rectangle1);
-		getChildren().add(rectangle2);
-		
+		getChildren().add(rectangle2);	
+	}
+	
+	public void openTheDoor() {
 		timeline1 = new Timeline();
-		
 		timeline1.setCycleCount(10);
 		KeyFrame keyFrame1 = new KeyFrame(Duration.millis(100), new EventHandler<ActionEvent>() {
-			
 			@Override
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
 				rectangle1.setWidth(rectangle1.getWidth() - (Hight/floorNum*0.4)/10 );
 				rectangle2.setX(rectangle2.getX() + (Hight/floorNum*0.4)/10 );
 				rectangle2.setWidth(rectangle2.getWidth() - (Hight/floorNum*0.4)/10 );
-				System.out.println("1");
+				System.out.println("open");
 			}
 		});
-		
 		timeline1.getKeyFrames().add(keyFrame1);
+		sequentialTransition.getChildren().add(timeline1);
 		
+	}
+	
+	public void closeTheDoor() {
 		timeline2 = new Timeline();
-		
 		timeline2.setCycleCount(10);
 		KeyFrame keyFrame2 = new KeyFrame(Duration.millis(100), new EventHandler<ActionEvent>() {
-			
 			@Override
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
 				rectangle1.setWidth(rectangle1.getWidth() + (Hight/floorNum*0.4)/10 );
 				rectangle2.setX(rectangle2.getX() - (Hight/floorNum*0.4)/10 );
 				rectangle2.setWidth(rectangle2.getWidth() + (Hight/floorNum*0.4)/10 );
-				System.out.println("2");
+				System.out.println("close");
 			}
 		});
-		
 		timeline2.getKeyFrames().add(keyFrame2);
+		sequentialTransition.getChildren().add(timeline2);
 		
-        timeline3 = new Timeline();
-		
+	}
+	public void up() {
+		timeline3 = new Timeline();
 		timeline3.setCycleCount(20);
 		KeyFrame keyFrame3 = new KeyFrame(Duration.millis(100), new EventHandler<ActionEvent>() {
 			
 			@Override
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
-				
+				rectangle1.setY(rectangle2.getY() - (Hight/floorNum)/20 );
+				rectangle2.setY(rectangle2.getY() - (Hight/floorNum)/20 );
+				System.out.println("up");
+			}
+		});
+		timeline3.getKeyFrames().add(keyFrame3);
+		sequentialTransition.getChildren().add(timeline3);
+	}
+	public void down() {
+		timeline4 = new Timeline();
+		timeline4.setCycleCount(20);
+		KeyFrame keyFrame4 = new KeyFrame(Duration.millis(100), new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent event) {
+				// TODO Auto-generated method stub
+				rectangle1.setY(rectangle2.getY() + (Hight/floorNum)/20 );
 				rectangle2.setY(rectangle2.getY() + (Hight/floorNum)/20 );
-				System.out.println("2");
+				System.out.println("down");
 			}
 		});
 		
-		timeline3.getKeyFrames().add(keyFrame3);
-	
-		
-	}
-	
-	public void openTheDoor() {
-		sequentialTransition.getChildren().add(timeline1);
-		
-	}
-	
-	public void closeTheDoor() {
-		sequentialTransition.getChildren().add(timeline2);
-		
-	}
-	public void up() {
-		
+		timeline4.getKeyFrames().add(keyFrame4);
+		sequentialTransition.getChildren().add(timeline4);
 	}
 	public void play() {
 		sequentialTransition.play();

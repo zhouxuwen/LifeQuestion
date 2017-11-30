@@ -8,6 +8,7 @@ public class Life {
 	final int peopleMAX = 13;
 	int floor;
 	boolean UpOrDown;
+	boolean isOpen;
 	int peopleNum;
 	boolean isFloor; //ÊÇ·ñµ½´ïÂ¥²ã
 	LinkedList<People> List_OnLife;
@@ -18,6 +19,7 @@ public class Life {
 		this.floor = floor;
 		UpOrDown = upOrDown;
 		this.peopleNum = peopleNum;
+		this.isOpen = false;
 		this.isFloor = isFloor;
 		List_OnLife = new LinkedList<People>();
 	}

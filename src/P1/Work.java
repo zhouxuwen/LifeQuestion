@@ -43,8 +43,8 @@ public class Work {
 		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file));
 		
 		People p1 = new People(21,123,65,2,9);
-		People p2 = new People(1,16,45,80,5);
-		People p3 = new People(4,382,14,1,99);
+		People p2 = new People(1,16,45,6,5);
+		People p3 = new People(4,382,14,1,8);
 		System.out.println(p1);
 		System.out.println(p2);
 		System.out.println(p3);
@@ -111,14 +111,20 @@ public class Work {
 	}
 	
 	public void start() {
-		
-		pane.openTheDoor();
+//		pane.up();
+//		
+//		pane.openTheDoor();
+//		
+//		
+//		pane.closeTheDoor();
+//		
+//		pane.down(); 
+//		
+//		pane.openTheDoor();
 		
 		
 		pane.closeTheDoor();
 		
-		
-		 
 		 int nowTime = 0;
 		 int MoveTime = 0;
 		 while(!list_Time.isEmpty()||!life.List_OnLife.isEmpty()||!list_OnFloor.isEmpty()) {
@@ -169,10 +175,12 @@ public class Work {
 					 list_NotOnUpOrDownList.poll();
 				 }
 				 
+				 
 				 /**
 				  * 是否到达楼层，到达楼层 是否加入电梯或下电梯
 				  * 先下后上
 				  */
+				 
 				 if(life.isFloor) {
 					 /**
 					  * 是否有人下电梯
@@ -180,6 +188,12 @@ public class Work {
 					 if(!life.List_OnLife.isEmpty()) {
 						 People p = new People();
 						 if(life.List_OnLife.getFirst().DestinationFloor == life.floor) {
+							
+							 if(!life.isOpen) {
+								pane.openTheDoor();
+								life.isOpen = true;
+							 }
+							 
 							 p = life.List_OnLife.poll();
 							 life.peopleNum--;
 							 nowTime++;
@@ -193,9 +207,16 @@ public class Work {
 					  * UP 上升状态
 					  * Down 下降状态
 					  */
+					 
 					 if(life.peopleNum < life.peopleMAX) {
 						 if(life.UpOrDown) {
 							 if(!floor[life.getFloor()].List_Up_OldMan.isEmpty()) {
+								 
+								 if(!life.isOpen) {
+										pane.openTheDoor();
+										life.isOpen = true;
+								 }
+								 
 								 life.List_OnLife.add(floor[life.getFloor()].List_Up_OldMan.getFirst());
 								 list_OnFloor.remove(floor[life.getFloor()].List_Up_OldMan.getFirst());
 								 floor[life.getFloor()].List_Up_OldMan.poll();
@@ -204,6 +225,12 @@ public class Work {
 								 continue;
 							 }
 							 else if(!floor[life.getFloor()].List_Up_Man.isEmpty()) {
+								 
+								 if(!life.isOpen) {
+										pane.openTheDoor();
+										life.isOpen = true;
+								}
+								 
 								 life.List_OnLife.add(floor[life.getFloor()].List_Up_Man.getFirst());
 								 list_OnFloor.remove(floor[life.getFloor()].List_Up_Man.getFirst());
 								 floor[life.getFloor()].List_Up_Man.poll();
@@ -212,11 +239,21 @@ public class Work {
 								 continue;
 							 }
 							 else {
+								 if(life.isOpen) {
+										pane.closeTheDoor();
+										life.isOpen = false;
+								 }
 								 life.isFloor = false;
 							 }
 						 }
 						 else {
 							 if(!floor[life.getFloor()].List_Down_OldMan.isEmpty()) {
+								 
+								 if(!life.isOpen) {
+										pane.openTheDoor();
+										life.isOpen = true;
+									 }
+								 
 								 life.List_OnLife.add(floor[life.getFloor()].List_Down_OldMan.getFirst());
 								 list_OnFloor.remove(floor[life.getFloor()].List_Down_OldMan.getFirst());
 								 floor[life.getFloor()].List_Down_OldMan.poll();
@@ -225,6 +262,12 @@ public class Work {
 								 continue;
 							 }
 							 else if(!floor[life.getFloor()].List_Down_Man.isEmpty()) {
+								 
+								 if(!life.isOpen) {
+										pane.openTheDoor();
+										life.isOpen = true;
+									 }
+								 
 								 life.List_OnLife.add(floor[life.getFloor()].List_Down_Man.getFirst());
 								 list_OnFloor.remove(floor[life.getFloor()].List_Down_Man.getFirst());
 								 floor[life.getFloor()].List_Down_Man.poll();
@@ -233,17 +276,37 @@ public class Work {
 								 continue;
 							 }
 							 else {
+								 
+								 if(life.isOpen) {
+										pane.closeTheDoor();
+										life.isOpen = false;
+								 }
+								 
 								 life.isFloor = false;
 							 } 
 						 }
 					 }
 					 else {
+						 
+						 if(life.isOpen) {
+								pane.closeTheDoor();
+								life.isOpen = false;
+						 }
+						 
 						 life.isFloor = false;
 					 }
 				 }
 				 
 				 MoveTime ++;
 				 if(MoveTime == 10) {
+					 
+					 if(life.UpOrDown) {
+						 pane.up();
+					 }
+					 else {
+						 pane.down();
+					 }
+					 
 					 if(life.UpOrDown) {
 						 life.floor ++; 
 					 }
@@ -254,9 +317,15 @@ public class Work {
 					 MoveTime = 0;
 				 }
 				 
+				 
+				 
 			 }
 			 nowTime ++;
 			
+		 }
+		 if(life.isOpen) {
+				pane.closeTheDoor();
+				life.isOpen = false;
 		 }
 	}
 	

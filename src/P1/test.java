@@ -42,11 +42,8 @@ public class test extends Application{
 //			 
 //			 System.out.println("Ok");
 			 pane.play();
-		}
-	private Object Thread(LifePaneThread lifePaneThread) {
-		// TODO Auto-generated method stub
-		return null;
 	}
+	
 	public static void main(String[] args) throws Exception {
 //		People p1 = new People(12,65,24,2,9);
 //		People p2 = new People(1,16,45,80,5);
