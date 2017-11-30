@@ -10,6 +10,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import javafx.util.Duration;
 
 public class LifePane extends Pane {
@@ -29,9 +30,13 @@ public class LifePane extends Pane {
 		// TODO Auto-generated constructor stub
 		sequentialTransition = new SequentialTransition();
 		for (int i = 0; i < floorNum; i++) {
+			String s = floorNum-i + "";
 			Line line = new Line(0,Hight/floorNum*(i+1),Width,Hight/floorNum*(i+1));
-			
+			Text text = new Text(s);
+			text.setX(5);
+			text.setY(Hight/floorNum*i + 15);
 			getChildren().add(line);
+			getChildren().add(text);
 			
 		}
 		rectangle1 = new Rectangle(60,900-Hight/floorNum + Hight/floorNum*0.4, Hight/floorNum*0.4,Hight/floorNum*0.6);
@@ -53,7 +58,7 @@ public class LifePane extends Pane {
 				rectangle1.setWidth(rectangle1.getWidth() - (Hight/floorNum*0.4)/10 );
 				rectangle2.setX(rectangle2.getX() + (Hight/floorNum*0.4)/10 );
 				rectangle2.setWidth(rectangle2.getWidth() - (Hight/floorNum*0.4)/10 );
-				System.out.println("open");
+//				System.out.println("open");
 			}
 		});
 		timeline1.getKeyFrames().add(keyFrame1);
@@ -71,7 +76,7 @@ public class LifePane extends Pane {
 				rectangle1.setWidth(rectangle1.getWidth() + (Hight/floorNum*0.4)/10 );
 				rectangle2.setX(rectangle2.getX() - (Hight/floorNum*0.4)/10 );
 				rectangle2.setWidth(rectangle2.getWidth() + (Hight/floorNum*0.4)/10 );
-				System.out.println("close");
+//				System.out.println("close");
 			}
 		});
 		timeline2.getKeyFrames().add(keyFrame2);
@@ -88,7 +93,7 @@ public class LifePane extends Pane {
 				// TODO Auto-generated method stub
 				rectangle1.setY(rectangle2.getY() - (Hight/floorNum)/20 );
 				rectangle2.setY(rectangle2.getY() - (Hight/floorNum)/20 );
-				System.out.println("up");
+//				System.out.println("up");
 			}
 		});
 		timeline3.getKeyFrames().add(keyFrame3);
@@ -104,7 +109,7 @@ public class LifePane extends Pane {
 				// TODO Auto-generated method stub
 				rectangle1.setY(rectangle2.getY() + (Hight/floorNum)/20 );
 				rectangle2.setY(rectangle2.getY() + (Hight/floorNum)/20 );
-				System.out.println("down");
+//				System.out.println("down");
 			}
 		});
 		

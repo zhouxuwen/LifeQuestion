@@ -1,0 +1,6 @@
+People [ID=21, Age=65, ComingTime=123, SourceFloor=2, DestinationFloor=9, LeavingTime=225, isOldman=true, UpOrDown=true]
+People [ID=1, Age=45, ComingTime=16, SourceFloor=6, DestinationFloor=5, LeavingTime=78, isOldman=false, UpOrDown=false]
+People [ID=4, Age=14, ComingTime=382, SourceFloor=1, DestinationFloor=8, LeavingTime=534, isOldman=false, UpOrDown=true]
+People [ID=21, Age=65, ComingTime=123, SourceFloor=2, DestinationFloor=9, LeavingTime=0, isOldman=true, UpOrDown=true]
+People [ID=1, Age=45, ComingTime=16, SourceFloor=6, DestinationFloor=5, LeavingTime=0, isOldman=false, UpOrDown=false]
+People [ID=4, Age=14, ComingTime=382, SourceFloor=1, DestinationFloor=8, LeavingTime=0, isOldman=false, UpOrDown=true]

@@ -1,7 +1,5 @@
 package P1;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -11,7 +9,7 @@ import javafx.stage.Stage;
 public class test extends Application{
 	
 	 static LifePane pane = new LifePane();
-	 static LifePaneThread paneThread = new LifePaneThread();
+	 
 	 @Override
 	public void start(Stage primaryStage) throws Exception {
 			// TODO Auto-generated method stub
@@ -25,8 +23,11 @@ public class test extends Application{
 			 
 			 work.write();
 			 work.read();
+			 work.readOnText();
 			 work.sort_ComingTime();
 			 work.start();
+			 work.writeToText();
+			 
 //			 Thread.sleep(1000);
 //			 Thread t1 = new  Thread(new LifePaneThread());
 //			 Thread t2 = new  Thread(new LifeCloseTheDoorThread());
@@ -60,8 +61,9 @@ public class test extends Application{
 //		System.out.println(life.List_OnLife.remove());
 //		System.out.println(life.List_OnLife.remove());
 		 
+//		Work work = new Work(pane);
+//		work.readOnText();
 		 
-		
 		Application.launch(args);
 		
 		

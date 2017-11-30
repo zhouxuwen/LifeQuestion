@@ -3,12 +3,7 @@ package P1;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
-
-import com.sun.glass.ui.Application;
-
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-
+import java.util.Scanner;
 import java.io.*;
 public class Work {
 	
@@ -19,7 +14,6 @@ public class Work {
 	Life life;
 	ListOnFloor [] floor = new ListOnFloor[105];
 	LifePane pane;
-	LifePaneThread lifePaneThread;
 	
 	public Work(LifePane pane) {
 		list = new LinkedList<>();
@@ -37,6 +31,7 @@ public class Work {
 			
 		}
 	}
+	
 	public void write() throws FileNotFoundException, IOException {
 		
 		String file = "text.dat";
@@ -55,27 +50,26 @@ public class Work {
 		oos.close();
 				
 	}
-	public void writeOnText() throws IOException, ClassNotFoundException {
-		String file2 = "text.txt";
+	public void writeToText() throws IOException, ClassNotFoundException {
+		String file2 = "text2.txt";
 		FileOutputStream os2 = new FileOutputStream(file2);
-		OutputStreamWriter oos2 = new OutputStreamWriter(os2,"GBK");
-		String file = "text.dat";
-		FileInputStream is = new FileInputStream(file);
-		ObjectInputStream ois = new ObjectInputStream(is);
+		OutputStreamWriter oos2 = new OutputStreamWriter(os2);
+		
 		People p = new People();
-		String s;	
-		while(is.available() > 0) {
-			p =(People)ois.readObject();
-			System.out.println(p);
+		String s;
+		while(!list.isEmpty()) {
+			p =(People)list.poll();
+			//System.out.println(p);
 			s = p.toString() + '\n';
 			oos2.write(s);
 			oos2.flush();
 		}
-		ois.close();	
+		os2.close();	
 		oos2.close();
 		
 		
 	}
+	
 	public void read() throws FileNotFoundException, IOException, ClassNotFoundException {
 		String file = "text.dat";
 		FileInputStream is = new FileInputStream(file);
@@ -89,6 +83,28 @@ public class Work {
 		}
 		ois.close();
 //		System.out.println(list);
+	}
+	@SuppressWarnings("resource")
+	public void readOnText() throws IOException {
+		File file = new File("text1.txt");
+		
+		Scanner input = new Scanner(file);
+		int id;
+		int comingTime;
+		int age;
+		int sourceFloor;
+		int destinationFloor;
+		while(input.hasNext()) {
+			id = input.nextInt();
+			comingTime = input.nextInt();
+			age = input.nextInt();
+			sourceFloor = input.nextInt();
+			destinationFloor = input.nextInt();
+			People p = new People(id,comingTime,age,sourceFloor,destinationFloor);
+			list.add(p);
+		}
+		//System.out.println(list);
+		
 	}
 	
 	public void sort_ComingTime() {
@@ -123,7 +139,7 @@ public class Work {
 //		pane.openTheDoor();
 		
 		
-		pane.closeTheDoor();
+	//	pane.closeTheDoor();
 		
 		 int nowTime = 0;
 		 int MoveTime = 0;
@@ -327,6 +343,7 @@ public class Work {
 				pane.closeTheDoor();
 				life.isOpen = false;
 		 }
+		 System.out.println(list);
 	}
 	
 	public void SortlistOnFloor() {
