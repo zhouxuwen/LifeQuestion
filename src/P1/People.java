@@ -5,6 +5,11 @@ import java.io.Serializable;
 public class People implements Serializable{
 	
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	protected int ID;
 	protected int ComingTime;
 	protected int Age;

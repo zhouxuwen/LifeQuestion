@@ -3,29 +3,38 @@ package P1;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
+
+import com.sun.glass.ui.Application;
+
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
 import java.io.*;
 public class Work {
+	
 	LinkedList<People> list;
 	LinkedList<People> list_Time;
 	LinkedList<People> list_OnFloor;
 	LinkedList<People> list_NotOnUpOrDownList;
 	Life life;
-	ListOnFloor [] floor = new ListOnFloor[105];;
-	public Work() {
+	ListOnFloor [] floor = new ListOnFloor[105];
+	LifePane pane;
+	LifePaneThread lifePaneThread;
+	
+	public Work(LifePane pane) {
 		list = new LinkedList<>();
 		list_Time= new LinkedList<>();
 		list_OnFloor = new LinkedList<>();
 		list_NotOnUpOrDownList = new LinkedList<>();
 		life = new Life(1,true,2,true);
+		this.pane = pane;
 		setListOnFloor();
 	}
 	public void setListOnFloor() {
 		for(int i =1;i < 105;i++) {
+			
 			floor[i] = new ListOnFloor();
-			floor[i].List_Down_Man = new LinkedList<People>();
-			floor[i].List_Down_OldMan = new LinkedList<People>();
-			floor[i].List_Up_Man = new LinkedList<People>();
-			floor[i].List_Up_OldMan = new LinkedList<People>();
+			
 		}
 	}
 	public void write() throws FileNotFoundException, IOException {
@@ -84,7 +93,7 @@ public class Work {
 	
 	public void sort_ComingTime() {
 		
-		Collections.sort(list_Time,new Comparator<People>(){
+		Collections.sort(list_Time,new Comparator<People>() {
 
 			@Override
 			public int compare(People o1, People o2) {
@@ -102,6 +111,14 @@ public class Work {
 	}
 	
 	public void start() {
+		
+		pane.openTheDoor();
+		
+		
+		pane.closeTheDoor();
+		
+		
+		 
 		 int nowTime = 0;
 		 int MoveTime = 0;
 		 while(!list_Time.isEmpty()||!life.List_OnLife.isEmpty()||!list_OnFloor.isEmpty()) {
@@ -182,6 +199,7 @@ public class Work {
 								 life.List_OnLife.add(floor[life.getFloor()].List_Up_OldMan.getFirst());
 								 list_OnFloor.remove(floor[life.getFloor()].List_Up_OldMan.getFirst());
 								 floor[life.getFloor()].List_Up_OldMan.poll();
+								 life.sort();
 								 nowTime++;
 								 continue;
 							 }
@@ -190,6 +208,7 @@ public class Work {
 								 list_OnFloor.remove(floor[life.getFloor()].List_Up_Man.getFirst());
 								 floor[life.getFloor()].List_Up_Man.poll();
 								 nowTime++;
+								 life.sort();
 								 continue;
 							 }
 							 else {
@@ -202,6 +221,7 @@ public class Work {
 								 list_OnFloor.remove(floor[life.getFloor()].List_Down_OldMan.getFirst());
 								 floor[life.getFloor()].List_Down_OldMan.poll();
 								 nowTime++;
+								 life.sort();
 								 continue;
 							 }
 							 else if(!floor[life.getFloor()].List_Down_Man.isEmpty()) {
@@ -209,6 +229,7 @@ public class Work {
 								 list_OnFloor.remove(floor[life.getFloor()].List_Down_Man.getFirst());
 								 floor[life.getFloor()].List_Down_Man.poll();
 								 nowTime++;
+								 life.sort();
 								 continue;
 							 }
 							 else {
@@ -235,9 +256,7 @@ public class Work {
 				 
 			 }
 			 nowTime ++;
-			if(nowTime == 50000) {
-				break;
-			}
+			
 		 }
 	}
 	
